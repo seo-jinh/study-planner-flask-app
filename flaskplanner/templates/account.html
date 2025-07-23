@@ -1,0 +1,93 @@
+{% extends "layout.html" %}  <!-- Inherit base layout (navbar, styling, etc.) -->
+
+{% block content %}
+    <div class="account-section">
+
+      <!-- Profile section: User's current profile image and info -->
+      <div class="media">
+        <img class="account-img" src="{{ image_file }}">
+        <!-- 
+          image_file is passed from the route.
+          Example: '/static/profile_pics/username.jpg'
+          rounded-circle = Bootstrap class for circular image
+          account-img = custom CSS class to size the profile picture
+        -->
+
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+          <!-- Jinja: current_user is from Flask-Login -->
+        </div>
+      </div>
+
+      <!-- Account update form -->
+      <form method="POST" action="" enctype="multipart/form-data">
+        <!-- enctype is needed to upload image files -->
+        {{ form.hidden_tag() }}  <!-- CSRF token and hidden fields -->
+
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Account Info</legend>
+
+          <!-- Username field -->
+          <div class="form-group">
+            {{ form.username.label(class="form-control-label") }}
+
+            {% if form.username.errors %}
+              <!-- Show field with red border and validation errors -->
+              {{ form.username(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.username.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <!-- Normal input field -->
+              {{ form.username(class="form-control form-control-lg") }}
+            {% endif %}
+          </div>
+
+          <!-- Email field -->
+          <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+
+            {% if form.email.errors %}
+              {{ form.email(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.email(class="form-control form-control-lg") }}
+            {% endif %}
+            <br>
+          </div>
+
+          <!-- Profile picture upload -->
+          <div class="form-group">
+            {{ form.picture.label() }}  <!-- Label for file input -->
+            {{ form.picture(class="form-control-file") }}  <!-- Bootstrap: file upload field -->
+
+            {% if form.picture.errors %}
+              <!-- Display any image upload errors -->
+              {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <br>
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+        <div class="form-group">
+            <br>
+            <a href="{{ url_for('users.logout') }}" class="btn btn-outline-danger">Logout</a>
+        </div>
+
+      </form>
+    </div>
+{% endblock content %}

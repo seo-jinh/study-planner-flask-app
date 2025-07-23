@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Header bar -->
+<div class="header-bar p-4 d-flex justify-content-between align-items-center">
+  <div class="header-left">
+    <h2>Good to see you<br>again, {{ current_user.username }}!</h2>
+  </div>
+
+  <div class="text-center flex-grow-1">
+    <h1 id="clock">00:00:00</h1>
+    <p id="date">January 1, 2025</p>
+  </div>
+
+  <div class="header-right">
+    <a class="home-pfp" href="{{ url_for('users.account') }}">
+      <img class="account-img" src="{{ image_file }}">
+    </a>
+  </div>
+</div>
+
+<div class="flexbox-container">
+  <!-- Left column with 3 stacked boxes -->
+  <div class="left-column">
+    <div class="flexbox-item flexbox-item-1" style = "font-size: 20px;"><b>Upcoming tasks for today:</b>
+      <ul class="upcoming-display">
+        {% for task in tasks_today %}
+          <li>{{ task.title }}</li>
+        {% else %}
+          No tasks due today. Horray!
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="flexbox-item flexbox-item-2" style = "font-size: 20px;"><b>Upcoming events for today:</b>
+      <ul class="upcoming-display">
+        
+        {% for event in events_today %}
+          <li>{{ event.title }}</li>
+        {% else %}
+          No events today. Horray!
+        {% endfor %}
+      </ul>  
+    </div>
+
+  </div>
+  <!-- Right column with max height-->
+ <div class="right-column">
+  <div class="flexbox-item flexbox-item-3" style="font-size: 20px;">
+    <b>Focus Mode, set a timer.</b>
+    <div class="timer-wrapper">
+      <div id="timer" class="timer"></div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='script2.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

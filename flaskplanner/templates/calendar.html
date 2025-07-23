@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center"></h2>
+  <div id="calendar"></div>
+</div>
+
+<!-- takes a Python list of dicts (converted from Event objects) and passes it to FullCalendar-->
+<!-- Waits until the HTML is fully loaded, then run this script.-->
+<!-- Finds the <div id="calendar"> on the page. calendar is the target container, it's empty before the rendering of JS -->
+<!-- Create a new calendar in that div using these options, calls the FullCalendar library via base.html -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+
+      let originalEvents = {{ events | tojson }};
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: originalEvents,
+
+        eventClick: function (info) {
+          const title = info.event.title;
+          const start = info.event.start.toLocaleString();
+          const end = info.event.end ? info.event.end.toLocaleString() : "Not specified";
+          const description = info.event.extendedProps.description || "No description";
+          const type = info.event.extendedProps.type || "N/A";
+          
+          const confirmMsg = 
+            `Title: ${title}\n` +
+            `Type: ${type}\n` +
+            `Start: ${start}\n` +
+            `End: ${end}\n` +
+            `Description: ${description}\n\n` +
+            `Do you want to delete this item?`
+
+          if (confirm(confirmMsg)) {
+            const [type, rawId] = info.event.id.split("-");
+            const route = type === "task" ? `/delete_task/${rawId}` : `/delete_event/${rawId}`;
+
+            fetch(route, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+            .then(response => {
+              if (response.ok) {
+                info.event.remove();
+                alert("Deleted successfully!");
+              } else {
+                alert("Failed to delete.");
+              }
+            });
+          }
+        }
+      });
+
+      calendar.render();
+
+      document.getElementById("searchBtn").addEventListener("click", function () {
+        const query = document.getElementById("eventSearch").value.toLowerCase();
+        const filtered = originalEvents.filter(e => e.title.toLowerCase().includes(query));
+
+        calendar.removeAllEvents();
+        calendar.addEventSource(filtered);
+      });
+    });
+  </script>
+{% endblock %}

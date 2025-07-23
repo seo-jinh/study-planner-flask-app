@@ -1,0 +1,280 @@
+
+
+/* Grid Logo Styling */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+/* Square logo customization*/
+.square {
+  width: 11px;
+  height: 11px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Fixed Sidebar*/
+.Sidebar {
+  z-index: 10;
+  position: fixed;  /* Doesn't scroll along*/
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+/* Centering logo + text */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.sidebar-title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+/* HR spacing */
+.sidebar-divider {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  border-color: #ffffff66;
+}
+
+/* Sidebar nav item base style */
+.nav-pills .nav-link {
+  font-size: 22px; 
+  margin-bottom: 16px;
+  color: white;
+  border-radius: 999px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect — pill shape */
+.nav-pills .nav-link:hover {
+  background-color: black;
+}
+
+/* Active nav item stays pill-shaped */
+.nav-pills .nav-link.active {
+  background-color: black;
+  border-radius: 999px;
+}
+.home-pfp:hover{
+  filter: brightness(1.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.header-bar {
+  z-index: 9;        /* takes second priority in layering*/
+  height: 143px;     /* Height of the header*/
+  background-color: rgb(241, 239, 239);
+
+}
+.header-bar h1 {
+  font-size: 35px;
+  margin-right: 90px;
+}
+
+.header-left h2 {
+  display: flex;
+  justify-content: left; 
+  align-items: left;
+
+  padding: 0 20px;
+  margin-left: 250px; 
+  font-size: 23px;
+}
+#date{
+  position: relative;
+  right: 6.5%;
+}
+.account-img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;           /* makes pfp circular*/
+  object-fit: cover;
+  margin-right: 20px; /* reduce spacing on the right */
+}
+.flexbox-container {
+  display: flex;
+  flex-direction: row; /* Two columns side by side */
+  gap: 20px;
+  position: relative;
+  top: 10px;
+  left: 260px;
+  max-width: 1000px;
+  max-height: 465px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.left-column, .right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.left-column {
+  flex: 1; 
+}
+
+.right-column {
+  flex: 1; 
+}
+
+.flexbox-item {
+  background-color: rgb(241, 239, 239);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* sets each height for different boxes*/
+.flexbox-item-1,
+.flexbox-item-2{
+  height: 215px;
+  text-align: center;
+}
+
+.flexbox-item-3{
+  height: 1000px;
+  text-align: center;
+
+}
+
+.upcoming-display{
+  padding-top: 10px;
+  padding-left: 30px;
+  text-align: left;
+  font-size: 17px;
+  
+  background-color: white;
+
+  border-radius: 10px;
+  height: 80%;               /* Fill the parent flexbox height */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* Vertically center content */
+}
+
+.wrapper {
+  
+  text-align: left;
+  max-width: 430px;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  position: absolute;  /* lets you position from relative to the nearest positioned ancestor */
+  top: 50%;            /* Centers the form in the middle of the Page*/
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-background {
+  background-color: rgb(52, 58, 64); 
+  height: 100vh;    /* needs height and vertical for background-color to make sure color is seen and fills the entire screen*/
+}
+
+#calendar {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+
+nav.navbar,.mb-3 {
+  margin-left: 250px;
+}
+
+
+.account-section, .task-section, .timer{
+  margin-left: 250px;
+  padding: 20px;
+}
+.flash-message {
+  display:flex;
+  justify-content: center;
+  max-width: fit-content;
+
+}
+.flash-message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050; /* Above most elements */
+  width: 90%;
+  max-width: 600px;
+}
+
+.timer-wrapper{
+  margin-top: 180px;
+  margin-left:88px;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;  /* vertical centering */
+  width: 32px;
+  height: 32px;
+
+
+
+}
+.timer-content {
+  background:  rgb(241, 239, 239);
+  height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  font-size: 32px;
+}
+.timer {
+  background: white;
+
+  border-radius: 999px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px 24px; /* tighter padding around timer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.timer__part {
+
+  font-size: 72px;
+  font-weight: bold;
+
+}
+
+.timer__btn {
+  width: 66px;
+  height: 66px;
+  margin-left: 16px;
+  border-radius: 100%;
+  border: none;
+  color: white;
+  background: #8208e6;
+  cursor: pointer;
+}
+
+.timer__btn--start {
+  background: #00b84c;
+}
+
+.timer__btn--stop {
+  background: #ff0256;
+}
+

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class ="timer-content">
+    <div class="timer"></div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='script2.js') }}"></script>
+{% endblock %}
+
