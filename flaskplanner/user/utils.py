@@ -1,19 +1,20 @@
 # used to handle file uploads for user profiles
 # UTIL IS USED IN users/routes.py -> from flaskblog.users.utils import save_picture, send_reset_email
 
-import os                    # module for handling file paths and filenames
-import secrets               # module to generate secure random values
-from PIL import Image        # From Pillow library, Used to resize and process images
-from flask import url_for, current_app      # Generates the URL to a route, Gives you access to the Flask app's config
-from flask_mail import Message      # create an email message object with subject, body, and recipients
-from flaskplanner import mail          # importing the mail = Mail() object you created in __init__.py
+import os                                # module for handling file paths and filenames
+import secrets                           # module to generate secure random values
+from PIL import Image                    # From Pillow library, Used to resize and process images
+from flask import url_for, current_app   # Generates the URL to a route, Gives you access to the Flask app's config
+from flask_mail import Message           # create an email message object with subject, body, and recipients
+from flaskplanner import mail            # importing the mail = Mail() object you created in __init__.py
 
 
 def save_picture(form_picture):
+
     # Generate a random filename, removes the original pg or png name since ther can be moultiple instance of that file name. 
-    random_hex = secrets.token_hex(8)    # creates a secure random string like 'f8a3c9e1'
+    random_hex = secrets.token_hex(8)                       # creates a secure random string like 'f8a3c9e1'
     _, f_ext = os.path.splitext(form_picture.filename)      # splits filename into name + extension
-    picture_fn = random_hex + f_ext      # Combines them to make something like 'f8a3c9e1.jpg', avoids name collisions with existing files
+    picture_fn = random_hex + f_ext                         # Combines them to make something like 'f8a3c9e1.jpg', avoids name collisions with existing files
     
     # This tells Flask to save the image in: /FlasK_Blog/flaskblog/static/profile_pics/<randomname>.jpg
     picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)

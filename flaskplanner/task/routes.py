@@ -106,7 +106,4 @@ def delete_task(task_id):
     db.session.commit()
     return {"success": True}
 
-@task.route("/tasks")
-def tasks():
-    return render_template('tasks.html', title = 'tasks')
 

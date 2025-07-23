@@ -3,16 +3,16 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flaskplanner import db, bcrypt
 from flaskplanner.user.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
-from flaskplanner.models import User               # gives me access to the user table in DB
-from flaskplanner.user.utils import save_picture, send_reset_email   #  functions from utils.py that handles emailing the user & saving images
+from flaskplanner.models import User                                 # gives me access to the user table in DB
+from flaskplanner.user.utils import save_picture, send_reset_email   # functions from utils.py that handles emailing the user & saving images
 
 # creates a blueprint object allows for the connection of all __init__.py files 
 users = Blueprint('users', __name__)
 
-
 # uses from flask_login import current_user, from flaskblog.users.forms import RegistrationForm, from flaskblog import bcrypt,
 # When registered stores teh password  so it’s not stored in plaintext in your database(important for security)
 # .decode('utf-8') → turns the hash (bytes) into a string so it can be saved into the database as text
+
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -23,8 +23,8 @@ def register():
 
         # this follows the formatting and requriements set in User class in models.py
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)            # adds the new user to the SQLAlchemy session (staging area for DB changes).
-        db.session.commit()             # writes the new user to the database
+        db.session.add(user)                                   # adds the new user to the SQLAlchemy session (staging area for DB changes).
+        db.session.commit()                                    # writes the new user to the database
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
@@ -59,27 +59,28 @@ def account():
 
     # validate_on_submit() is a shortcut for doing both: if request.method == 'POST' and form.validate():
     if form.validate_on_submit():
-        if form.picture.data:  # If user uploaded a new profile picture
-            picture_file = save_picture(form.picture.data)  # Resize and save pic via utils.py
-            current_user.image_file = picture_file  # Update current user's profile picture
+        if form.picture.data:                                # If user uploaded a new profile picture
+            picture_file = save_picture(form.picture.data)   # Resize and save pic via utils.py
+            current_user.image_file = picture_file           # Update current user's profile picture
+        
         # Update username and email from form input
         current_user.username = form.username.data
         current_user.email = form.email.data
-        db.session.commit()  # Commit changes to the database
+        db.session.commit()                                 # Commit changes to the database
         flash('Your account has been updated!', 'success')  # Show success message
-        return redirect(url_for('users.account'))  # Prevent form resubmission on refresh
+        return redirect(url_for('users.account'))           # Prevent form resubmission on refresh
 
     # 'GET'-when user visits account page,'POST' when user updates the form page 
     # just displaying 'GET'(nonupdated) information if user didn't update anything. 
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
+
     # Load user’s current profile picture
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    # Render the account page with current user info and profile picture
-    return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
 
+    # Render the account page with current user info and profile picture
+    return render_template('account.html', title='Account',image_file=image_file, form=form)
 
 # uses send_reset_email() in utils.py where get_reset_token() is cled from models.py where it sends a link 
 # rest are just formatting and flash message + render_template

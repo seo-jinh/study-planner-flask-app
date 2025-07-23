@@ -9,10 +9,9 @@ from flask_mail import Mail
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 
-load_dotenv()  # loads variables from .env
+load_dotenv()  # loads variables from .env(private secret key/password file)
 
-# Initialize extensions globally, not yet linked to flask app create reusable tools, 
-# but they're not connected to any specific Flask app yet
+# Initializes extensions globally
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -22,7 +21,6 @@ mail = Mail()                                    # creates an instance of Flask-
 
 def create_app():
 
-    # It's like storing a value to a variable, you need to return for it to give you a value
     app = Flask(__name__)   # Creates the Flask app, have to return later to run it. 
 
     # Configure from env

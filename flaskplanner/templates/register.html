@@ -13,18 +13,19 @@
                     <!-- Displays Username Label-->
                     {{ form.username.label(class= "form-control-label") }}
                     
-                    {% if form.username.errors %}    <!-- checs if any validation erroes with username input -->
+                    {% if form.username.errors %}                    <!-- checks if any validation erroes with username input -->
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class ="invalid-feedback">   <!--div will show under the input box when there’s an error.-->
+                        <div class ="invalid-feedback">              <!--div will show under the input box when there’s an error.-->
                             {% for error in form.username.errors%}   <!--Forms.py defines what counts as an error, register.html displays it-->
-                                <span>{{ error }}</span>    <!--Prints default error message from WTForms -->
+                                <span>{{ error }}</span>             <!--Prints default error message from WTForms -->
                             {% endfor %}
                         </div>
-                    {% else %}    <!--If there are no errors, it just shows the input field normally-->
+                    {% else %}                                                    <!--If there are no errors, it just shows the input field normally-->
                         {{ form.username(class="form-control form-control-lg")}}  <!-- Makes input box looks nice using bootStrap-->
                     {% endif %}
                 </div>
 
+                <!-- Same formatting and logic as above -->
                 <div class = "form-group">    
                     {{ form.email.label(class= "form-control-label") }}
                     {% if form.email.errors %}

@@ -6,12 +6,12 @@
       <!-- Profile section: User's current profile image and info -->
       <div class="media">
         <img class="account-img" src="{{ image_file }}">
-        <!-- 
-          image_file is passed from the route.
-          Example: '/static/profile_pics/username.jpg'
-          rounded-circle = Bootstrap class for circular image
-          account-img = custom CSS class to size the profile picture
-        -->
+
+        <!--  image_file is passed from the route.
+        Example: '/static/profile_pics/username.jpg'
+        rounded-circle = Bootstrap class for circular image
+        account-img = custom CSS class to size the profile picture -->
+        
 
         <div class="media-body">
           <h2 class="account-heading">{{ current_user.username }}</h2>
@@ -65,7 +65,7 @@
 
           <!-- Profile picture upload -->
           <div class="form-group">
-            {{ form.picture.label() }}  <!-- Label for file input -->
+            {{ form.picture.label() }}                     <!-- Label for file input -->
             {{ form.picture(class="form-control-file") }}  <!-- Bootstrap: file upload field -->
 
             {% if form.picture.errors %}
